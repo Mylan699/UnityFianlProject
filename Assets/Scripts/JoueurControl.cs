@@ -19,24 +19,24 @@ public class PlayerControl : MonoBehaviour
     public int winScore;
 
     public GameObject victoireText;
-    public GameObject livesText;    // GameObject pour afficher les vies
-    public GameObject timerText;    // GameObject pour afficher le compte à rebours
-    public GameObject defaiteText;   // GameObject de défaite
-    public int lives = 3;           // Nombre de vies du joueur
-    public float timer = 60f;       // Temps du compte à rebours
+    public GameObject livesText;    
+    public GameObject timerText;    
+    public GameObject defaiteText;   
+    public int lives = 3;           
+    public float timer = 60f;       
 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        UpdateLivesText(); // Initialiser le texte des vies
+        UpdateLivesText(); 
         UpdateTimerText();
     }
 
-       // Update is called once per frame
+       
     void Update()
     {
-    // Compte à rebours
+    
     timer -= Time.deltaTime;
     UpdateTimerText(); 
 
@@ -46,10 +46,10 @@ public class PlayerControl : MonoBehaviour
         GameOver();
     }
 
-    // Vérifier si le joueur est tombé
+    
     if(transform.position.y < -5f)
     {
-        LoseLife(); // Appelle la méthode pour gérer la perte de vie et la réinitialisation de la position
+        LoseLife(); 
     }
 }
 
@@ -73,9 +73,9 @@ public class PlayerControl : MonoBehaviour
             if(score >= winScore)
             {
                 //gamewin
-                livesText.SetActive(false); // Masquer le texte des vies
-                timerText.SetActive(false); // Masquer le texte du timer
-                Time.timeScale = 0f;      // Arrêter le temps de jeu
+                livesText.SetActive(false); 
+                timerText.SetActive(false); 
+                Time.timeScale = 0f;     
                 victoireText.SetActive(true);
             }
 
@@ -89,22 +89,22 @@ public class PlayerControl : MonoBehaviour
 
     if (lives <= 0)
     {
-        GameOver(); // Défaite si plus de vies
+        GameOver(); 
     }
     else
     {
-        rb.velocity = Vector3.zero; // Remettre la vitesse à zéro
-        transform.position = new Vector3(0, 1, 0); // Replace la balle au centre (ou ajustez selon votre besoin)
-        // Assurez-vous que cette position est le point de spawn initial de votre balle
+        rb.velocity = Vector3.zero; 
+        transform.position = new Vector3(0, 1, 0); 
+       
     }
 }
 
 private void GameOver()
 {
-    defaiteText.SetActive(true); // Afficher le message de défaite
-    livesText.SetActive(false); // Masquer le texte des vies
-    timerText.SetActive(false); // Masquer le texte du timer
-    Time.timeScale = 0f;      // Arrêter le temps de jeu
+    defaiteText.SetActive(true); 
+    livesText.SetActive(false); 
+    timerText.SetActive(false); 
+    Time.timeScale = 0f;      
 }
 
 private void UpdateLivesText()
