@@ -10,9 +10,6 @@ public class CameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (target != null)
-        {
-            transform.LookAt(target); // Correction ici
-        }
+        transform.LookAt(target);
     }
 }
