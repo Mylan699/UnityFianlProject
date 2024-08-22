@@ -36,16 +36,10 @@ public class PlayerControl : MonoBehaviour
        // Update is called once per frame
     void Update()
     {
-        if(transform.position.y < -5f)
-        {
-            SceneManager.LoadScene("Game");
-        }
-
-        // Décrémenter le timer
+    // Compte à rebours
     timer -= Time.deltaTime;
-    UpdateTimerText();
+    UpdateTimerText(); 
 
-    // Vérifier si le temps est écoulé
     if (timer <= 0)
     {
         timer = 0;
@@ -55,9 +49,9 @@ public class PlayerControl : MonoBehaviour
     // Vérifier si le joueur est tombé
     if(transform.position.y < -5f)
     {
-        LoseLife();
+        LoseLife(); // Appelle la méthode pour gérer la perte de vie et la réinitialisation de la position
     }
-    }
+}
 
     private void FixedUpdate()
     {
@@ -79,6 +73,9 @@ public class PlayerControl : MonoBehaviour
             if(score >= winScore)
             {
                 //gamewin
+                livesText.SetActive(false); // Masquer le texte des vies
+                timerText.SetActive(false); // Masquer le texte du timer
+                Time.timeScale = 0f;      // Arrêter le temps de jeu
                 victoireText.SetActive(true);
             }
 
@@ -87,7 +84,7 @@ public class PlayerControl : MonoBehaviour
 
     private void LoseLife()
 {
-    lives--;  // Réduire le nombre de vies
+    lives--;
     UpdateLivesText();
 
     if (lives <= 0)
@@ -96,16 +93,18 @@ public class PlayerControl : MonoBehaviour
     }
     else
     {
-        // Réinitialiser la position du joueur au point de réapparition
-        rb.velocity = Vector3.zero;  // Remettre la vitesse à zéro pour éviter un mouvement imprévu
+        rb.velocity = Vector3.zero; // Remettre la vitesse à zéro
         transform.position = new Vector3(0, 1, 0); // Replace la balle au centre (ou ajustez selon votre besoin)
+        // Assurez-vous que cette position est le point de spawn initial de votre balle
     }
 }
 
 private void GameOver()
 {
     defaiteText.SetActive(true); // Afficher le message de défaite
-    Time.timeScale = 0f;        // Arrêter le temps de jeu
+    livesText.SetActive(false); // Masquer le texte des vies
+    timerText.SetActive(false); // Masquer le texte du timer
+    Time.timeScale = 0f;      // Arrêter le temps de jeu
 }
 
 private void UpdateLivesText()
